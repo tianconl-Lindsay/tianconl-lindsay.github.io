@@ -47,6 +47,8 @@
   a:hover { text-decoration-thickness: 2px; }
   a:focus-visible, button:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 2px; }
 
+  header { display: flex; align-items: center; gap: 2rem; }
+  .avatar { width: 136px; height: 136px; border-radius: 50%; object-fit: cover; object-position: 50% 40%; flex: none; border: 1px solid var(--rule); }
   header h1 {
     font-weight: 500;
     font-size: clamp(2.4rem, 6vw, 3.1rem);
@@ -119,6 +121,8 @@
   @media (max-width: 520px) {
     main { padding-top: 3rem; }
     .modules { grid-template-columns: 1fr; }
+    header { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+    .avatar { width: 112px; height: 112px; }
     .entry { grid-template-columns: 1fr; }
     .entry .when { padding-top: 0; }
   }
@@ -131,6 +135,8 @@
 <main>
 
   <header>
+    <img class="avatar" src="photo.jpg" alt="Photo of Tiancong (Lindsay) Li" width="136" height="136">
+    <div>
     <h1>Tiancong (Lindsay) Li</h1>
     <p class="role">M.S. student, Embedded and Cyber-Physical Systems, UC Irvine</p>
     <ul class="contact">
@@ -139,6 +145,7 @@
       <li><a href="https://github.com/tianconl-lindsay">GitHub</a></li>
       <li><a href="https://www.linkedin.com/in/lindsay-li-683652352">LinkedIn</a></li>
     </ul>
+    </div>
   </header>
 
   <section aria-labelledby="about">
