@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiancong (Lindsay) Li</title>
+<meta name="description" content="Tiancong (Lindsay) Li — M.S. student at UC Irvine working on small, efficient tool-using LLM agents.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F7F9;
+    --ink: #1B2430;
+    --muted: #5A6675;
+    --rule: #D9DEE5;
+    --navy: #14345A;
+    --lit: #DCE7F4;
+    --panel: #FFFFFF;
+    --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+    --sans: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11161D;
+      --ink: #E4E8EE;
+      --muted: #9AA6B4;
+      --rule: #2A3340;
+      --navy: #9EBCE3;
+      --lit: #1F3352;
+      --panel: #171E27;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.1875rem;
+    line-height: 1.6;
+  }
+  main { max-width: 42rem; margin: 0 auto; padding: 4.5rem 1.5rem 3rem; }
+  a { color: var(--navy); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 2px; }
+
+  header h1 {
+    font-weight: 500;
+    font-size: clamp(2.4rem, 6vw, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 .6rem;
+    color: var(--navy);
+  }
+  .role { margin: 0 0 1.4rem; color: var(--muted); font-size: 1.15rem; }
+  .contact { font-family: var(--sans); font-size: .9rem; display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; padding: 0; list-style: none; }
+
+  section { margin-top: 3.25rem; }
+  h2 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--navy);
+    margin: 0 0 1rem;
+    padding-bottom: .4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  p { margin: 0 0 1rem; }
+
+  /* Paper */
+  .paper-title { font-size: 1.35rem; font-weight: 600; line-height: 1.3; margin: 0 0 .3rem; }
+  .paper-meta { font-family: var(--sans); font-size: .9rem; color: var(--muted); margin: 0 0 1.4rem; }
+
+  .agent {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.25rem 1.25rem 1rem;
+    margin: 0 0 1.4rem;
+  }
+  .modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+  .module {
+    font: 500 .95rem var(--sans);
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: .7rem .5rem;
+    cursor: pointer;
+    transition: background-color .35s ease, border-color .35s ease;
+  }
+  .module small { display: block; font-weight: 400; color: var(--muted); font-size: .78rem; margin-top: .15rem; }
+  .module.on { background: var(--lit); border-color: var(--navy); }
+  .transcript {
+    margin-top: .6rem;
+    border-top: 2px solid var(--navy);
+    padding-top: .45rem;
+    font: .8rem var(--sans);
+    color: var(--muted);
+    text-align: center;
+  }
+  .explain { font-size: 1rem; color: var(--ink); min-height: 3.2em; margin: .9rem 0 0; }
+
+  .findings { padding-left: 1.1rem; margin: 0 0 1rem; }
+  .findings li { margin-bottom: .55rem; }
+  .request { font-family: var(--sans); font-size: .92rem; color: var(--muted); }
+
+  /* Lists */
+  .entry { display: grid; grid-template-columns: 1fr auto; gap: 0 1rem; margin-bottom: 1rem; }
+  .entry strong { font-weight: 600; }
+  .entry .when { font-family: var(--sans); font-size: .85rem; color: var(--muted); white-space: nowrap; padding-top: .2rem; }
+  .entry .sub { grid-column: 1 / -1; color: var(--muted); font-size: 1rem; }
+
+  footer { margin-top: 4rem; font-family: var(--sans); font-size: .8rem; color: var(--muted); }
+
+  @media (max-width: 520px) {
+    main { padding-top: 3rem; }
+    .modules { grid-template-columns: 1fr; }
+    .entry { grid-template-columns: 1fr; }
+    .entry .when { padding-top: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .module { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <header>
+    <h1>Tiancong (Lindsay) Li</h1>
+    <p class="role">M.S. student, Embedded and Cyber-Physical Systems, UC Irvine</p>
+    <ul class="contact">
+      <li><a href="mailto:tianconl@uci.edu">tianconl@uci.edu</a></li>
+      <li><a href="cv.pdf">CV (PDF)</a></li>
+      <li><a href="https://github.com/tianconl-lindsay">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/lindsay-li-683652352">LinkedIn</a></li>
+    </ul>
+  </header>
+
+  <section aria-labelledby="about">
+    <h2 id="about">About</h2>
+    <!-- TODO: 按你自己的语气改这一段 -->
+    <p>I build language-model agents that call tools, and I try to make them small. My current work shows that a tool agent assembled from 0.6B-parameter modules can beat an 8B model on the same benchmark, if you decide carefully where to split the agent and where to spend training.</p>
+    <p>I work with <a href="https://sites.google.com/view/wenzhuozhou/home/">Prof. Wenzhuo Zhou</a> at UC Irvine. Before that, I studied software engineering at Dalian University of Technology. I am applying to PhD programs for Fall 2027, with interests in LLM agents, tool learning, and efficient language models.</p>
+  </section>
+
+  <section aria-labelledby="research">
+    <h2 id="research">Research</h2>
+    <p class="paper-title">ToolSIC: Small-Backbone Tool-Token Agents Rivaling Large Models</p>
+    <p class="paper-meta"><strong>Tiancong Li</strong>, Wenzhuo Zhou. Under review at ACL Rolling Review, October 2026.</p>
+
+    <div class="agent" role="group" aria-label="ToolSIC agent structure">
+      <div class="modules">
+        <button class="module" data-i="0" aria-pressed="false">Select<small>which tool</small></button>
+        <button class="module" data-i="1" aria-pressed="false">Invoke<small>with what arguments</small></button>
+        <button class="module" data-i="2" aria-pressed="false">Compose<small>the final answer</small></button>
+      </div>
+      <div class="transcript">one shared transcript, one module active at a time</div>
+      <p class="explain" id="explain" aria-live="polite">ToolSIC splits the agent loop at the tool-token interface into three lightweight modules. Select a module to see what it does.</p>
+    </div>
+
+    <ul class="findings">
+      <li>Built from 0.6B modules, the agent beats the released ToolGen-8B by 10.9 points of grounded success (41.2 vs. 30.3), with about 1/6 of its training compute and 1/11 of its inference compute.</li>
+      <li>Training on trajectories quietly erases tool tokens the trajectories never call: top-1 selection falls from 89% to 12% at 0.6B. Keeping the selection module out of trajectory training avoids this by design.</li>
+      <li>Answer composition needs no training. An off-the-shelf instruction-tuned model beats every composition module fine-tuned on the benchmark's answers.</li>
+      <li>A grounded-success metric and a paired evaluation protocol expose “hollow” successes that LLM judges miss.</li>
+    </ul>
+    <p class="request">The paper is under anonymous review. I am happy to share the PDF by <a href="mailto:tianconl@uci.edu?subject=ToolSIC%20paper%20request">email</a>.</p>
+  </section>
+
+  <section aria-labelledby="education">
+    <h2 id="education">Education</h2>
+    <div class="entry">
+      <span><strong>University of California, Irvine</strong>, M.S. in Embedded and Cyber-Physical Systems</span>
+      <span class="when">2025 – 2026</span>
+    </div>
+    <div class="entry">
+      <span><strong>University of California, Irvine</strong>, Certificate in Electrical Engineering and Computer Science</span>
+      <span class="when">2024 – 2025</span>
+    </div>
+    <div class="entry">
+      <span><strong>Dalian University of Technology</strong>, B.Eng. in Software Engineering</span>
+      <span class="when">2021 – 2025</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="projects">
+    <h2 id="projects">Projects</h2>
+    <div class="entry">
+      <span><strong>Edge deployment of learned robot-arm policies</strong></span>
+      <span class="when">2026 – present</span>
+      <span class="sub">MECPS capstone sponsored by Synaptics. I lead software and model training: an imitation-learning pipeline on Hugging Face LeRobot, a benchmark of four policies on a real arm, and ongoing work quantizing the policy for the Synaptics SL2619 edge NPU.</span>
+    </div>
+    <div class="entry">
+      <span><strong>Intelligent traffic detection drone</strong></span>
+      <span class="when">2022 – 2023</span>
+      <span class="sub">Raspberry Pi and STM32 drone for real-time traffic event detection. 3rd Prize, National Computer Design Competition.</span>
+    </div>
+  </section>
+
+  <footer>Last updated October 2026</footer>
+</main>
+
+<script>
+  (function () {
+    var text = [
+      "Select picks the tool by emitting a tool token. It is the retrieval-stage checkpoint and never sees trajectory training, so it keeps every tool it learned.",
+      "Invoke fills in the arguments for the chosen tool and reads its result back into the shared transcript.",
+      "Compose writes the final answer from the transcript. An off-the-shelf instruction-tuned model works better here than any fine-tuned one."
+    ];
+    var buttons = Array.prototype.slice.call(document.querySelectorAll(".module"));
+    var explain = document.getElementById("explain");
+    var touched = false;
+
+    function light(i, describe) {
+      buttons.forEach(function (b, j) {
+        b.classList.toggle("on", j === i);
+        b.setAttribute("aria-pressed", j === i ? "true" : "false");
+      });
+      if (describe) explain.textContent = text[i];
+    }
+
+    buttons.forEach(function (b, i) {
+      b.addEventListener("click", function () { touched = true; light(i, true); });
+    });
+
+    // One short sequence on load: Select, then Invoke, then Compose, then rest.
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce) {
+      [0, 1, 2].forEach(function (i, k) {
+        setTimeout(function () { if (!touched) light(i, false); }, 700 + k * 900);
+      });
+      setTimeout(function () { if (!touched) light(-1, false); }, 700 + 3 * 900);
+    }
+  })();
+</script>
+</body>
+</html>
