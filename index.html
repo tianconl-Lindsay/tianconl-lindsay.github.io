@@ -152,7 +152,7 @@
   <section aria-labelledby="about">
     <h2 id="about">About</h2>
     <!-- TODO: 按你自己的语气改这一段 -->
-    <p>I build language-model agents that call tools, and I try to make them small. My current work shows that a tool agent assembled from 0.6B-parameter modules can beat an 8B model on the same benchmark, if you decide carefully where to split the agent and where to spend training.</p>
+    <p>I work on language-model agents that use tools, and on making them small enough to train and run cheaply. My current research asks whether the benefits of tool-token agents, which select a tool from tens of thousands in a single decoding step, can be kept without training one large model to run the entire agent loop. The answer, so far, is yes: splitting the loop where the capabilities differ lets lightweight models rival much larger agents.</p>
     <p>I work with <a href="https://sites.google.com/view/wenzhuozhou/home/">Prof. Wenzhuo Zhou</a> at UC Irvine. Before that, I studied software engineering at Dalian University of Technology. I am applying to PhD programs for Fall 2027, with interests in LLM agents, tool learning, and efficient language models.</p>
   </section>
 
@@ -172,10 +172,10 @@
     </div>
 
     <ul class="findings">
-      <li>Built from 0.6B modules, the agent beats the released ToolGen-8B by 10.9 points of grounded success (41.2 vs. 30.3), with about 1/6 of its training compute and 1/11 of its inference compute.</li>
-      <li>Training on trajectories quietly erases tool tokens the trajectories never call: top-1 selection falls from 89% to 12% at 0.6B. Keeping the selection module out of trajectory training avoids this by design.</li>
-      <li>Answer composition needs no training. An off-the-shelf instruction-tuned model beats every composition module fine-tuned on the benchmark's answers.</li>
-      <li>A grounded-success metric and a paired evaluation protocol expose “hollow” successes that LLM judges miss.</li>
+      <li>Tool-token methods let an agent pick a tool from tens of thousands of APIs in a single decoding step, but existing tool-token agents train one large model to learn the whole tool vocabulary and run the entire agent loop, at substantial training and inference cost.</li>
+      <li>ToolSIC decomposes the agent loop at the tool-token interface into three lightweight modules, Selection, Invocation and Composition, which share a single transcript with only one active at a time.</li>
+      <li>Each module learns only what its task requires. The selection module is taken before trajectory training, so it retains knowledge of the whole tool vocabulary; the invocation module, trained on trajectories, decides when to call a tool and writes the call; the composition module is an off-the-shelf instruction-tuned model that writes the answer without further training.</li>
+      <li>On StableToolBench with 47K tools, ToolSIC, built from models far smaller than the released ToolGen agent, outperforms it in grounded success at a fraction of its training and inference compute. A grounded-success metric, paired statistical tests, a stricter judge and a blind human comparison back the result.</li>
     </ul>
     <p class="request">The paper is under anonymous review. I am happy to share the PDF by <a href="mailto:tianconl@uci.edu?subject=ToolSIC%20paper%20request">email</a>.</p>
   </section>
