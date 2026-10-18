@@ -8,210 +8,282 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F6F7F9;
-    --ink: #1B2430;
-    --muted: #5A6675;
-    --rule: #D9DEE5;
+    --bg: #EEF1F5;
+    --bg-dots: #D3D9E2;
+    --card: #FFFFFF;
+    --ink: #1A2230;
+    --muted: #5B6778;
+    --rule: #DCE2EA;
     --navy: #14345A;
-    --lit: #DCE7F4;
-    --panel: #FFFFFF;
+    --navy-ink: #FFFFFF;
+    --lit: #E4EDF8;
+    --tag: #E8EEF6;
+    --shadow: 0 1px 2px rgba(20,52,90,.06), 0 8px 24px rgba(20,52,90,.06);
     --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
     --sans: "Public Sans", "Helvetica Neue", Arial, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #11161D;
-      --ink: #E4E8EE;
-      --muted: #9AA6B4;
-      --rule: #2A3340;
-      --navy: #9EBCE3;
-      --lit: #1F3352;
-      --panel: #171E27;
+      --bg: #0F141B;
+      --bg-dots: #1E2733;
+      --card: #171E28;
+      --ink: #E5E9EF;
+      --muted: #9AA6B6;
+      --rule: #2A3443;
+      --navy: #A9C4E8;
+      --navy-ink: #0F141B;
+      --lit: #203655;
+      --tag: #1F2A38;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
     }
   }
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body {
     margin: 0;
-    background: var(--bg);
     color: var(--ink);
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--bg-dots) 1px, transparent 1px);
+    background-size: 22px 22px;
     font-family: var(--serif);
-    font-size: 1.1875rem;
+    font-size: 1.125rem;
     line-height: 1.6;
   }
-  main { max-width: 42rem; margin: 0 auto; padding: 4.5rem 1.5rem 3rem; }
   a { color: var(--navy); text-decoration-thickness: 1px; text-underline-offset: 3px; }
   a:hover { text-decoration-thickness: 2px; }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 2px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 3px; }
 
-  header { display: flex; align-items: center; gap: 2rem; }
-  .avatar { width: 136px; height: 136px; border-radius: 50%; object-fit: cover; object-position: 50% 50%; flex: none; border: 1px solid var(--rule); }
-  header h1 {
-    font-weight: 500;
-    font-size: clamp(2.4rem, 6vw, 3.1rem);
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-    margin: 0 0 .6rem;
-    color: var(--navy);
+  .page {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: 17rem 1fr;
+    gap: 3rem;
+    align-items: start;
   }
-  .role { margin: 0 0 1.4rem; color: var(--muted); font-size: 1.15rem; }
-  .contact { font-family: var(--sans); font-size: .9rem; display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; padding: 0; list-style: none; }
 
-  section { margin-top: 3.25rem; }
+  /* Sidebar */
+  .side { position: sticky; top: 2rem; }
+  .avatar {
+    width: 160px; height: 160px; border-radius: 50%; object-fit: cover; display: block;
+    border: 4px solid var(--card); box-shadow: var(--shadow);
+  }
+  .side h1 {
+    font-weight: 500; font-size: 2.1rem; line-height: 1.1; letter-spacing: -0.01em;
+    margin: 1.4rem 0 .5rem; color: var(--navy);
+  }
+  .side .who { font-family: var(--sans); font-size: .95rem; color: var(--muted); margin: 0 0 1.1rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1.4rem; padding: 0; list-style: none; }
+  .tags li {
+    font-family: var(--sans); font-size: .78rem; font-weight: 500; color: var(--navy);
+    background: var(--tag); border-radius: 999px; padding: .28rem .7rem;
+  }
+  .contact { list-style: none; margin: 0; padding: 0; font-family: var(--sans); font-size: .9rem; }
+  .contact li { margin-bottom: .45rem; display: flex; align-items: center; gap: .55rem; }
+  .contact svg { width: 16px; height: 16px; flex: none; stroke: var(--muted); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .side nav { margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); }
+  .side nav a { display: block; font-family: var(--sans); font-size: .85rem; color: var(--muted); text-decoration: none; padding: .25rem 0; }
+  .side nav a:hover { color: var(--navy); }
+
+  /* Main */
+  .main { min-width: 0; }
+  section { margin-bottom: 2.4rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 12px;
+    box-shadow: var(--shadow); padding: 1.6rem 1.8rem;
+  }
   h2 {
-    font-family: var(--sans);
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--navy);
-    margin: 0 0 1rem;
-    padding-bottom: .4rem;
-    border-bottom: 1px solid var(--rule);
+    font-family: var(--sans); font-weight: 700; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 1rem; display: flex; align-items: center; gap: .7rem;
   }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
   p { margin: 0 0 1rem; }
+  p:last-child { margin-bottom: 0; }
+  .lede { font-size: 1.3rem; line-height: 1.5; font-weight: 500; }
 
   /* Paper */
-  .paper-title { font-size: 1.35rem; font-weight: 600; line-height: 1.3; margin: 0 0 .3rem; }
-  .paper-meta { font-family: var(--sans); font-size: .9rem; color: var(--muted); margin: 0 0 1.4rem; }
+  .paper { padding: 0; overflow: hidden; }
+  .paper-head { background: var(--navy); color: var(--navy-ink); padding: 1.4rem 1.8rem; }
+  .paper-head .kicker { font-family: var(--sans); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; opacity: .75; margin: 0 0 .4rem; }
+  .paper-title { font-size: 1.45rem; font-weight: 600; line-height: 1.3; margin: 0 0 .4rem; }
+  .paper-meta { font-family: var(--sans); font-size: .88rem; opacity: .85; margin: 0; }
+  .paper-body { padding: 1.5rem 1.8rem 1.6rem; }
 
-  .agent {
-    background: var(--panel);
-    border: 1px solid var(--rule);
-    border-radius: 6px;
-    padding: 1.25rem 1.25rem 1rem;
-    margin: 0 0 1.4rem;
-  }
-  .modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+  .modules { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: .5rem; align-items: stretch; }
   .module {
-    font: 500 .95rem var(--sans);
-    color: var(--ink);
-    background: transparent;
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: .7rem .5rem;
-    cursor: pointer;
-    transition: background-color .35s ease, border-color .35s ease;
+    font: 600 .95rem var(--sans); color: var(--ink); text-align: left;
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 10px;
+    padding: .85rem .9rem; cursor: pointer;
+    transition: background-color .3s ease, border-color .3s ease, transform .3s ease;
   }
-  .module small { display: block; font-weight: 400; color: var(--muted); font-size: .78rem; margin-top: .15rem; }
+  .module small { display: block; font-weight: 400; color: var(--muted); font-size: .8rem; margin-top: .2rem; }
+  .module:hover { transform: translateY(-1px); }
   .module.on { background: var(--lit); border-color: var(--navy); }
-  .transcript {
-    margin-top: .6rem;
-    border-top: 2px solid var(--navy);
-    padding-top: .45rem;
-    font: .8rem var(--sans);
-    color: var(--muted);
-    text-align: center;
-  }
-  .explain { font-size: 1rem; color: var(--ink); min-height: 3.2em; margin: .9rem 0 0; }
+  .arrow { display: flex; align-items: center; color: var(--muted); }
+  .arrow svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .transcript { margin-top: .7rem; border-top: 2px solid var(--navy); padding-top: .45rem; font: .8rem var(--sans); color: var(--muted); text-align: center; }
+  .explain { font-size: 1rem; min-height: 3.2em; margin: 1rem 0 1.3rem; padding: .9rem 1rem; background: var(--bg); border-radius: 8px; }
+  .findings { padding-left: 1.15rem; margin: 0 0 1rem; }
+  .findings li { margin-bottom: .55rem; padding-left: .2rem; }
+  .findings li::marker { color: var(--navy); }
+  .request { font-family: var(--sans); font-size: .9rem; color: var(--muted); margin: 0; }
 
-  .findings { padding-left: 1.1rem; margin: 0 0 1rem; }
-  .findings li { margin-bottom: .55rem; }
-  .request { font-family: var(--sans); font-size: .92rem; color: var(--muted); }
+  /* Timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+  .timeline::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; background: var(--rule); }
+  .timeline li { position: relative; padding-left: 1.9rem; margin-bottom: 1.1rem; }
+  .timeline li:last-child { margin-bottom: 0; }
+  .timeline li::before { content: ""; position: absolute; left: 0; top: .5rem; width: 14px; height: 14px; border-radius: 50%; background: var(--card); border: 3px solid var(--navy); }
+  .timeline .when { font-family: var(--sans); font-size: .8rem; color: var(--muted); display: block; margin-bottom: .1rem; }
+  .timeline strong { font-weight: 600; }
+  .timeline .sub { color: var(--muted); font-size: 1rem; display: block; }
 
-  /* Lists */
-  .entry { display: grid; grid-template-columns: 1fr auto; gap: 0 1rem; margin-bottom: 1rem; }
-  .entry strong { font-weight: 600; }
-  .entry .when { font-family: var(--sans); font-size: .85rem; color: var(--muted); white-space: nowrap; padding-top: .2rem; }
-  .entry .sub { grid-column: 1 / -1; color: var(--muted); font-size: 1rem; }
+  /* Projects */
+  .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .project h3 { font-size: 1.15rem; font-weight: 600; margin: 0 0 .25rem; line-height: 1.3; }
+  .project .when { font-family: var(--sans); font-size: .8rem; color: var(--muted); display: block; margin-bottom: .6rem; }
+  .project p { font-size: 1rem; color: var(--ink); }
+  .pill { display: inline-block; font-family: var(--sans); font-size: .75rem; font-weight: 600; color: var(--navy); background: var(--tag); border-radius: 999px; padding: .2rem .6rem; margin-top: .8rem; }
 
-  footer { margin-top: 4rem; font-family: var(--sans); font-size: .8rem; color: var(--muted); }
+  footer { font-family: var(--sans); font-size: .8rem; color: var(--muted); margin-top: 1rem; }
 
-  @media (max-width: 520px) {
-    main { padding-top: 3rem; }
-    .modules { grid-template-columns: 1fr; }
-    header { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  @media (max-width: 860px) {
+    .page { grid-template-columns: 1fr; gap: 2rem; padding-top: 2.5rem; }
+    .side { position: static; display: grid; grid-template-columns: auto 1fr; gap: 0 1.4rem; align-items: center; }
     .avatar { width: 112px; height: 112px; }
-    .entry { grid-template-columns: 1fr; }
-    .entry .when { padding-top: 0; }
+    .side h1 { margin-top: 0; font-size: 1.9rem; }
+    .side .tags, .side .contact { grid-column: 1 / -1; }
+    .side nav { display: none; }
+    .projects { grid-template-columns: 1fr; }
+    .modules { grid-template-columns: 1fr; }
+    .arrow { justify-content: center; }
+    .arrow svg { transform: rotate(90deg); }
+    .card { padding: 1.3rem 1.2rem; }
+    .paper-head, .paper-body { padding-left: 1.2rem; padding-right: 1.2rem; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .module { transition: none; }
+  @media (max-width: 480px) {
+    .side { grid-template-columns: 1fr; }
   }
+  @media (prefers-reduced-motion: reduce) { .module { transition: none; } html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
-<main>
+<div class="page">
 
-  <header>
-    <img class="avatar" src="photo.jpg" alt="Photo of Tiancong (Lindsay) Li" width="136" height="136">
-    <div>
+  <aside class="side">
+    <img class="avatar" src="photo.jpg" alt="Photo of Tiancong (Lindsay) Li" width="160" height="160">
     <h1>Tiancong (Lindsay) Li</h1>
-    <p class="role" style="margin-bottom:.2rem;color:var(--ink)">LLM agents, tool learning, and efficient language models</p>
-    <p class="role">Master's student, UC Irvine</p>
+    <p class="who">Master's student, UC Irvine</p>
+    <ul class="tags">
+      <li>LLM agents</li>
+      <li>Tool learning</li>
+      <li>Efficient language models</li>
+    </ul>
     <ul class="contact">
-      <li><a href="mailto:tianconl@uci.edu">tianconl@uci.edu</a></li>
-      <li><a href="cv.pdf">CV (PDF)</a></li>
-      <li><a href="https://github.com/tianconl-lindsay">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/lindsay-li-683652352">LinkedIn</a></li>
+      <li><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><a href="mailto:tianconl@uci.edu">tianconl@uci.edu</a></li>
+      <li><svg viewBox="0 0 24 24"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></svg><a href="cv.pdf">CV (PDF)</a></li>
+      <li><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3.1-.3 6.4-1.5 6.4-7A5.4 5.4 0 0 0 20 4.8 5 5 0 0 0 19.9 1S18.7.6 16 2.5a13.4 13.4 0 0 0-7 0C6.3.6 5.1 1 5.1 1A5 5 0 0 0 5 4.8a5.4 5.4 0 0 0-1.5 3.8c0 5.4 3.3 6.6 6.4 7a3.4 3.4 0 0 0-.9 2.6V22"/></svg><a href="https://github.com/tianconl-Lindsay">GitHub</a></li>
+      <li><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><path d="M2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg><a href="https://www.linkedin.com/in/lindsay-li-683652352">LinkedIn</a></li>
     </ul>
-    </div>
-  </header>
+    <nav aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#education">Education</a>
+      <a href="#projects">Projects</a>
+    </nav>
+  </aside>
 
-  <section aria-labelledby="about">
-    <h2 id="about">About</h2>
-    <!-- TODO: 按你自己的语气改这一段 -->
-    <p>I work on language-model agents that use tools, and on making them small enough to train and run cheaply. My current research asks whether the benefits of tool-token agents, which select a tool from tens of thousands in a single decoding step, can be kept without training one large model to run the entire agent loop. The answer, so far, is yes: splitting the loop where the capabilities differ lets lightweight models rival much larger agents.</p>
-    <p>I work with <a href="https://sites.google.com/view/wenzhuozhou/home/">Prof. Wenzhuo Zhou</a> at UC Irvine. Before that, I studied software engineering at Dalian University of Technology. I am applying to PhD programs for Fall 2027, with interests in LLM agents, tool learning, and efficient language models.</p>
-  </section>
+  <main class="main">
 
-  <section aria-labelledby="research">
-    <h2 id="research">Research</h2>
-    <p class="paper-title">ToolSIC: Small-Backbone Tool-Token Agents Rivaling Large Models</p>
-    <p class="paper-meta"><strong>Tiancong Li</strong>, Wenzhuo Zhou. Under review at ACL Rolling Review, October 2026.</p>
-
-    <div class="agent" role="group" aria-label="ToolSIC agent structure">
-      <div class="modules">
-        <button class="module" data-i="0" aria-pressed="false">Selection module<small>picks the tool</small></button>
-        <button class="module" data-i="1" aria-pressed="false">Invocation module<small>decides and writes the call</small></button>
-        <button class="module" data-i="2" aria-pressed="false">Composition module<small>writes the answer</small></button>
+    <section id="about" aria-labelledby="about-h">
+      <h2 id="about-h">About</h2>
+      <div class="card">
+        <!-- TODO: 按你自己的语气改这一段 -->
+        <p class="lede">I work on language-model agents that use tools, and on making them small enough to train and run cheaply.</p>
+        <p>My current research asks whether the benefits of tool-token agents, which select a tool from tens of thousands in a single decoding step, can be kept without training one large model to run the entire agent loop. The answer, so far, is yes: splitting the loop where the capabilities differ lets lightweight models rival much larger agents.</p>
+        <p>I work with <a href="https://sites.google.com/view/wenzhuozhou/home/">Prof. Wenzhuo Zhou</a> at UC Irvine. Before that, I studied software engineering at Dalian University of Technology. I am applying to PhD programs for Fall 2027.</p>
       </div>
-      <div class="transcript">one shared transcript, one module active at a time</div>
-      <p class="explain" id="explain" aria-live="polite">ToolSIC splits the agent loop at the tool-token interface into three lightweight modules. Click a module to see what it does.</p>
-    </div>
+    </section>
 
-    <ul class="findings">
-      <li>Tool-token methods let an agent pick a tool from tens of thousands of APIs in a single decoding step, but existing tool-token agents train one large model to learn the whole tool vocabulary and run the entire agent loop, at substantial training and inference cost.</li>
-      <li>ToolSIC decomposes the agent loop at the tool-token interface into three lightweight modules, Selection, Invocation and Composition, which share a single transcript with only one active at a time.</li>
-      <li>Each module learns only what its task requires. The selection module is taken before trajectory training, so it retains knowledge of the whole tool vocabulary; the invocation module, trained on trajectories, decides when to call a tool and writes the call; the composition module is an off-the-shelf instruction-tuned model that writes the answer without further training.</li>
-      <li>On StableToolBench with 47K tools, ToolSIC, built from models far smaller than the released ToolGen agent, outperforms it in grounded success at a fraction of its training and inference compute. A grounded-success metric, paired statistical tests, a stricter judge and a blind human comparison back the result.</li>
-    </ul>
-    <p class="request">The paper is under anonymous review. I am happy to share the PDF by <a href="mailto:tianconl@uci.edu?subject=ToolSIC%20paper%20request">email</a>.</p>
-  </section>
+    <section id="research" aria-labelledby="research-h">
+      <h2 id="research-h">Research</h2>
+      <div class="card paper">
+        <div class="paper-head">
+          <p class="kicker">Under review at ACL Rolling Review, October 2026</p>
+          <p class="paper-title">ToolSIC: Small-Backbone Tool-Token Agents Rivaling Large Models</p>
+          <p class="paper-meta"><strong>Tiancong Li</strong>, Wenzhuo Zhou</p>
+        </div>
+        <div class="paper-body">
+          <div role="group" aria-label="ToolSIC agent structure">
+            <div class="modules">
+              <button class="module" data-i="0" aria-pressed="false">Selection module<small>picks the tool</small></button>
+              <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+              <button class="module" data-i="1" aria-pressed="false">Invocation module<small>decides and writes the call</small></button>
+              <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+              <button class="module" data-i="2" aria-pressed="false">Composition module<small>writes the answer</small></button>
+            </div>
+            <div class="transcript">one shared transcript, one module active at a time</div>
+            <p class="explain" id="explain" aria-live="polite">ToolSIC splits the agent loop at the tool-token interface into three lightweight modules. Click a module to see what it does.</p>
+          </div>
+          <ul class="findings">
+            <li>Tool-token methods let an agent pick a tool from tens of thousands of APIs in a single decoding step, but existing tool-token agents train one large model to learn the whole tool vocabulary and run the entire agent loop, at substantial training and inference cost.</li>
+            <li>ToolSIC decomposes the agent loop at the tool-token interface into three lightweight modules, Selection, Invocation and Composition, which share a single transcript with only one active at a time.</li>
+            <li>Each module learns only what its task requires. The selection module is taken before trajectory training, so it retains knowledge of the whole tool vocabulary; the invocation module, trained on trajectories, decides when to call a tool and writes the call; the composition module is an off-the-shelf instruction-tuned model that writes the answer without further training.</li>
+            <li>On StableToolBench with 47K tools, ToolSIC, built from models far smaller than the released ToolGen agent, outperforms it in grounded success at a fraction of its training and inference compute. A grounded-success metric, paired statistical tests, a stricter judge and a blind human comparison back the result.</li>
+          </ul>
+          <p class="request">The paper is under anonymous review. I am happy to share the PDF by <a href="mailto:tianconl@uci.edu?subject=ToolSIC%20paper%20request">email</a>.</p>
+        </div>
+      </div>
+    </section>
 
-  <section aria-labelledby="education">
-    <h2 id="education">Education</h2>
-    <div class="entry">
-      <span><strong>University of California, Irvine</strong>, M.S. in Embedded and Cyber-Physical Systems</span>
-      <span class="when">2025 – 2026</span>
-    </div>
-    <div class="entry">
-      <span><strong>University of California, Irvine</strong>, Certificate in Electrical Engineering and Computer Science</span>
-      <span class="when">2024 – 2025</span>
-    </div>
-    <div class="entry">
-      <span><strong>Dalian University of Technology</strong>, B.Eng. in Software Engineering</span>
-      <span class="when">2021 – 2025</span>
-    </div>
-  </section>
+    <section id="education" aria-labelledby="education-h">
+      <h2 id="education-h">Education</h2>
+      <div class="card">
+        <ul class="timeline">
+          <li>
+            <span class="when">2025 – 2026</span>
+            <strong>University of California, Irvine</strong>
+            <span class="sub">M.S. in Embedded and Cyber-Physical Systems</span>
+          </li>
+          <li>
+            <span class="when">2024 – 2025</span>
+            <strong>University of California, Irvine</strong>
+            <span class="sub">Certificate in Electrical Engineering and Computer Science</span>
+          </li>
+          <li>
+            <span class="when">2021 – 2025</span>
+            <strong>Dalian University of Technology</strong>
+            <span class="sub">B.Eng. in Software Engineering</span>
+          </li>
+        </ul>
+      </div>
+    </section>
 
-  <section aria-labelledby="projects">
-    <h2 id="projects">Projects</h2>
-    <div class="entry">
-      <span><strong>Edge deployment of learned robot-arm policies</strong></span>
-      <span class="when">2026 – present</span>
-      <span class="sub">MECPS capstone sponsored by Synaptics. I lead software and model training: an imitation-learning pipeline on Hugging Face LeRobot, a benchmark of four policies on a real arm, and ongoing work quantizing the policy for the Synaptics SL2619 edge NPU.</span>
-    </div>
-    <div class="entry">
-      <span><strong>Intelligent traffic detection drone</strong></span>
-      <span class="when">2022 – 2023</span>
-      <span class="sub">Raspberry Pi and STM32 drone for real-time traffic event detection. 3rd Prize, National Computer Design Competition.</span>
-    </div>
-  </section>
+    <section id="projects" aria-labelledby="projects-h">
+      <h2 id="projects-h">Projects</h2>
+      <div class="projects">
+        <div class="card project">
+          <h3>Edge deployment of learned robot-arm policies</h3>
+          <span class="when">2026 – present</span>
+          <p>MECPS capstone sponsored by Synaptics. I lead software and model training: an imitation-learning pipeline on Hugging Face LeRobot, a benchmark of four policies on a real arm, and ongoing work quantizing the policy for the Synaptics SL2619 edge NPU.</p>
+          <span class="pill">Edge AI</span>
+        </div>
+        <div class="card project">
+          <h3>Intelligent traffic detection drone</h3>
+          <span class="when">2022 – 2023</span>
+          <p>Raspberry Pi and STM32 drone for real-time traffic event detection, with a Blockly visual-programming interface.</p>
+          <span class="pill">3rd Prize, National Computer Design Competition</span>
+        </div>
+      </div>
+    </section>
 
-  <footer>Last updated October 2026</footer>
-</main>
+    <footer>Last updated October 2026</footer>
+  </main>
+</div>
 
 <script>
   (function () {
@@ -223,7 +295,6 @@
     var buttons = Array.prototype.slice.call(document.querySelectorAll(".module"));
     var explain = document.getElementById("explain");
     var touched = false;
-
     function light(i, describe) {
       buttons.forEach(function (b, j) {
         b.classList.toggle("on", j === i);
@@ -231,12 +302,9 @@
       });
       if (describe) explain.textContent = text[i];
     }
-
     buttons.forEach(function (b, i) {
       b.addEventListener("click", function () { touched = true; light(i, true); });
     });
-
-    // One short sequence on load: Select, then Invoke, then Compose, then rest.
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!reduce) {
       [0, 1, 2].forEach(function (i, k) {
