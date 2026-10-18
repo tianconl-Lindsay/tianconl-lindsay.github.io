@@ -163,12 +163,12 @@
 
     <div class="agent" role="group" aria-label="ToolSIC agent structure">
       <div class="modules">
-        <button class="module" data-i="0" aria-pressed="false">Select<small>which tool</small></button>
-        <button class="module" data-i="1" aria-pressed="false">Invoke<small>with what arguments</small></button>
-        <button class="module" data-i="2" aria-pressed="false">Compose<small>the final answer</small></button>
+        <button class="module" data-i="0" aria-pressed="false">Selection module<small>picks the tool</small></button>
+        <button class="module" data-i="1" aria-pressed="false">Invocation module<small>decides and writes the call</small></button>
+        <button class="module" data-i="2" aria-pressed="false">Composition module<small>writes the answer</small></button>
       </div>
       <div class="transcript">one shared transcript, one module active at a time</div>
-      <p class="explain" id="explain" aria-live="polite">ToolSIC splits the agent loop at the tool-token interface into three lightweight modules. Select a module to see what it does.</p>
+      <p class="explain" id="explain" aria-live="polite">ToolSIC splits the agent loop at the tool-token interface into three lightweight modules. Click a module to see what it does.</p>
     </div>
 
     <ul class="findings">
@@ -216,9 +216,9 @@
 <script>
   (function () {
     var text = [
-      "Select picks the tool by emitting a tool token. It is the retrieval-stage checkpoint and never sees trajectory training, so it keeps every tool it learned.",
-      "Invoke fills in the arguments for the chosen tool and reads its result back into the shared transcript.",
-      "Compose writes the final answer from the transcript. An off-the-shelf instruction-tuned model works better here than any fine-tuned one."
+      "The selection module picks the tool by emitting one tool token from the whole tool vocabulary. It is the retrieval-stage checkpoint and never enters trajectory training, so it retains every tool it learned.",
+      "The invocation module, trained on agent trajectories, decides whether another call is needed and writes the arguments for the selected tool.",
+      "The composition module writes the final answer from the tool observations. It is an off-the-shelf instruction-tuned model, used without further training."
     ];
     var buttons = Array.prototype.slice.call(document.querySelectorAll(".module"));
     var explain = document.getElementById("explain");
