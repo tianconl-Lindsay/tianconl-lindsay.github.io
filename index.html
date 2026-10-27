@@ -181,7 +181,7 @@
     <ul class="tags">
       <li>LLM agents</li>
       <li>Tool learning</li>
-      <li>Efficient language models</li>
+      <li>Efficient &amp; on-device LLMs</li>
     </ul>
     <ul class="contact">
       <li><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><a href="mailto:tianconl@uci.edu">tianconl@uci.edu</a></li>
@@ -230,10 +230,9 @@
             <p class="explain" id="explain" aria-live="polite">ToolSIC splits the agent loop at the tool-token interface into three lightweight modules. Click a module to see what it does.</p>
           </div>
           <ul class="findings">
-            <li>Tool-token methods let an agent pick a tool from tens of thousands of APIs in a single decoding step, but existing tool-token agents train one large model to learn the whole tool vocabulary and run the entire agent loop, at substantial training and inference cost.</li>
-            <li>ToolSIC decomposes the agent loop at the tool-token interface into three lightweight modules, Selection, Invocation and Composition, which share a single transcript with only one active at a time.</li>
-            <li>Each module learns only what its task requires. The selection module is taken before trajectory training, so it retains knowledge of the whole tool vocabulary; the invocation module, trained on trajectories, decides when to call a tool and writes the call; the composition module is an off-the-shelf instruction-tuned model that writes the answer without further training.</li>
-            <li>On StableToolBench with 47K tools, ToolSIC, built from models far smaller than the released ToolGen agent, outperforms it in grounded success at a fraction of its training and inference compute. A grounded-success metric, paired statistical tests, a stricter judge and a blind human comparison back the result.</li>
+            <li><strong>The problem.</strong> Tool-token agents pick a tool from tens of thousands of APIs in one decoding step, but today they require training one large model to run the entire agent loop.</li>
+            <li><strong>The idea.</strong> Split the loop at the tool-token interface into three lightweight modules, each trained only as far as its job requires: tool selection never enters trajectory training, and answers come from an untrained off-the-shelf model.</li>
+            <li><strong>The result.</strong> On StableToolBench with 47K tools, 0.6B modules outperform the released ToolGen-8B by 10.9 points of grounded success, with 6&times; less training compute and 11&times; less inference compute.</li>
           </ul>
           <p class="request">The paper is under anonymous review. I am happy to share the PDF by <a href="mailto:tianconl@uci.edu?subject=ToolSIC%20paper%20request">email</a>.</p>
         </div>
@@ -267,9 +266,9 @@
       <h2 id="projects-h">Projects</h2>
       <div class="projects">
         <div class="card project">
-          <h3>Edge deployment of learned robot-arm policies</h3>
+          <h3>On-device robot manipulation policies</h3>
           <span class="when">2026 – present</span>
-          <p>MECPS capstone sponsored by Synaptics. I lead software and model training: an imitation-learning pipeline on Hugging Face LeRobot, a benchmark of four policies on a real arm, and ongoing work quantizing the policy for the Synaptics SL2619 edge NPU.</p>
+          <p>MECPS capstone sponsored by Synaptics. I lead code and model training for a four-person team: we benchmarked four robot policies, reached 10/10 pick-and-place success, and deployed the policy to run on the Synaptics SL2619 edge NPU. Now extending it to voice-activated medication dispensing with NousLogic, where I am building the Gemma-based speech module.</p>
           <span class="pill">Edge AI</span>
         </div>
         <div class="card project">
